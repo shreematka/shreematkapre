@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHREMATKA PREMIUM - Login</title>
+    
+    <!-- Firebase 12.8.0 -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-auth.js";
+        
+        // Your NEW Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyCNjZrLqizHj3TSW0BXVpizezxOyTAAh6U",
+            authDomain: "shreematkapre.firebaseapp.com",
+            projectId: "shreematkapre",
+            storageBucket: "shreematkapre.firebasestorage.app",
+            messagingSenderId: "167455772522",
+            appId: "1:167455772522:web:0c110a5d86e7b3da5ddf13",
+            measurementId: "G-YB8PJV1226"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        
+        // Make auth available globally
+        window.auth = auth;
+        window.signInWithEmailAndPassword = signInWithEmailAndPassword;
+        window.onAuthStateChanged = onAuthStateChanged;
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0a0a2a 0%, #1a1a3a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: rgba(20, 20, 40, 0.9);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            padding: 50px 40px;
+            width: 100%;
+            max-width: 450px;
+            border: 3px solid #4cc9f0;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #4cc9f0, #4361ee, #f72585);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+        
+        .logo h1 {
+            color: #4cc9f0;
+            font-size: 42px;
+            text-shadow: 0 4px 15px rgba(76, 201, 240, 0.4);
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+        
+        .logo .premium {
+            color: #f72585;
+            font-weight: bold;
+            font-size: 20px;
+            letter-spacing: 3px;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .logo p {
+            color: #b8b8d1;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        
+        .input-group {
+            margin-bottom: 25px;
+        }
+        
+        .input-group label {
+            display: block;
+            color: #4cc9f0;
+            margin-bottom: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(76, 201, 240, 0.4);
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        .input-group input:focus {
+            outline: none;
+            border-color: #4cc9f0;
+            box-shadow: 0 0 0 3px rgba(76, 201, 240, 0.2);
+            background: rgba(255, 255, 255, 0.12);
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(45deg, #4361ee, #3a56d4);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+        }
+        
+        .login-btn:hover {
+            background: linear-gradient(45deg, #3a56d4, #2a46c4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.4);
+        }
+        
+        .error-message {
+            color: #f72585;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            min-height: 20px;
+            font-weight: 500;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 35px;
+            color: #8888aa;
+            font-size: 12px;
+            border-top: 1px solid rgba(76, 201, 240, 0.2);
+            padding-top: 25px;
+        }
+        
+        .footer-premium {
+            color: #f72585;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 40px 25px;
+            }
+            
+            .logo h1 {
+                font-size: 32px;
+            }
+            
+            .logo .premium {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>SHREMATKA</h1>
+            <span class="premium">PREMIUM</span>
+            <p>Exclusive Matka Platform</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">USERNAME</label>
+                <input type="text" id="username" placeholder="Enter premium username" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">PASSWORD</label>
+                <input type="password" id="password" placeholder="Enter premium password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">🔐 LOGIN TO PREMIUM</button>
+            
+            <div id="error" class="error-message"></div>
+        </form>
+        
+        <div class="footer">
+            <p>© 2024 SHREMATKA <span class="footer-premium">PREMIUM</span></p>
+            <p>Exclusive access for premium members only</p>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const loginForm = document.getElementById('loginForm');
+        const usernameInput = document.getElementById('username');
+        const passwordInput = document.getElementById('password');
+        const errorElement = document.getElementById('error');
+
+        // Login Function
+        loginForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const username = usernameInput.value.trim();
+            const password = passwordInput.value;
+            
+            // Clear previous error
+            errorElement.textContent = '';
+            
+            // Basic validation
+            if (!username || !password) {
+                errorElement.textContent = 'Please fill all fields';
+                return;
+            }
+            
+            // Convert username to email format
+            let email = username;
+            if (!username.includes('@')) {
+                email = username + '@shreematkapremium.com';
+            }
+            
+            // Show loading state
+            const loginBtn = document.querySelector('.login-btn');
+            const originalText = loginBtn.textContent;
+            loginBtn.textContent = '🔐 AUTHENTICATING...';
+            loginBtn.disabled = true;
+            
+            try {
+                // Firebase login
+                await window.signInWithEmailAndPassword(window.auth, email, password);
+                // Login successful - redirect to home page
+                window.location.href = 'home.html';
+            } catch (error) {
+                // Handle errors
+                let errorMessage = 'Premium access denied. ';
+                
+                switch(error.code) {
+                    case 'auth/invalid-credential':
+                        errorMessage += 'Invalid username or password.';
+                        break;
+                    case 'auth/user-not-found':
+                        errorMessage += 'Premium account not found.';
+                        break;
+                    case 'auth/wrong-password':
+                        errorMessage += 'Incorrect password.';
+                        break;
+                    case 'auth/too-many-requests':
+                        errorMessage += 'Too many attempts. Try later.';
+                        break;
+                    default:
+                        errorMessage += error.message;
+                }
+                
+                errorElement.textContent = errorMessage;
+                
+                // Reset button
+                loginBtn.textContent = originalText;
+                loginBtn.disabled = false;
+            }
+        });
+
+        // Check if user is already logged in
+        window.onAuthStateChanged(window.auth, (user) => {
+            if (user) {
+                // User is logged in, redirect to home
+                window.location.href = 'home.html';
+            }
+        });
+    </script>
+</body>
+</html>
